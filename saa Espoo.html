@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Espoo säätila</title>
+
+</head>
+<body> 
+	<h3>Espoon sää tällä hetkellä</h3>
+
+	<div id="vastaus"></div>
+
+	<script type="text/javascript">
+        
+        function saaEspoo() {
+		    fetch("http://api.openweathermap.org/data/2.5/weather?lang=fi&q=helsinki&units=metric&APPID=24fa5357b1f1e3fdab9b4be2d0a9cd0c")     
+                .then( function (response) { return response.json()})
+                
+                .then( function (responseJson) {
+                document.getElementById("vastaus").innerHTML = "<p>" + responseJson.weather[0].description + "<br>Lämpötila: " + responseJson.main.temp.toFixed(1) + " °C<br>Tuuli: " + responseJson.wind.speed + " m/s<br> Pilvisyys: " + responseJson.clouds.all +  " %</p>";
+            })
+                
+                .catch( function (error) {
+			     document.getElementById("vastaus").innerHTML = "<p>Säätietoja ei pystytä hakemaan</p>";
+            })
+            }
+        
+        saaEspoo();
+        
+	</script>
+</body>
+</html>
